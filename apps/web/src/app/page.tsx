@@ -51,7 +51,6 @@ export default function Home() {
     <div className="min-h-screen bg-white text-black">
       <Header />
 
-      <span>hi</span>
       {/* Search */}
       <div className="flex flex-col items-center mt-8">
         <input
