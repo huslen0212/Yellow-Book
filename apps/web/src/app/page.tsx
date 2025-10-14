@@ -9,39 +9,10 @@ export const revalidate = 60;
 
 // Streamed section (async)
 async function PlacesSection() {
-  const places = [
-    {
-      id: '1',
-      title: 'Төв Номын Сан',
-      description:
-        'Монгол Улсын Үндэсний номын сан нь олон төрлийн ном, сэтгүүл, дижитал сан бүхий нийтийн уншлагын төв юм.',
-      image: '/nomiinSan.jpg',
-    },
-    {
-      id: '2',
-      title: 'Чингис хаан Үндэсний Музей',
-      description:
-        'Монголын түүх, соёл, урлагийг дэлгэн үзүүлэх орчин үеийн тоноглогдсон музей.',
-      image: '/muzei.jpg',
-    },
-    {
-      id: '3',
-      title: 'Акума Засварын Төв',
-      description:
-        'Хотын төвд байрлах олон үйл ажиллагаатай үйлчилгээний төв бөгөөд уншлагын өрөө, компьютерын өрөө, цахим номын санг санал болгодог.',
-      image: '/akuma.jpg',
-    },
-    {
-      id: '4',
-      title: 'Тэрэлж Ресорт',
-      description:
-        'Тэрэлжийн байгалийн цогцолборт газрын төвд байрлах амралтын газар бөгөөд зочдод тав тухтай орчинг олгодог.',
-      image: '/terelj.jpg',
-    },
-  ];
-
-  // Stream hiih delay simulation (demo purpose)
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const res = await fetch('http://localhost:3001/places', {
+    next: { revalidate: 60 }, // ISR тохиргоо
+  });
+  const places = await res.json();
 
   return <PlacesGrid places={places} />;
 }

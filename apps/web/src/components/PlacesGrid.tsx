@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 interface Place {
   id: string;
-  title: string;
+  name: string;
   description: string;
   image: string;
 }
@@ -28,19 +28,19 @@ export default function PlacesGrid({ places }: PlacesGridProps) {
             "
           >
             <CardHeader>
-              <CardTitle>{place.title}</CardTitle>
+              <CardTitle>{place.name}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="relative w-full h-48 mb-3 overflow-hidden rounded-md">
                 <Image
-                  src={place.image}
-                  alt={place.title}
+                  src={place.image || '/default.jpg'}
+                  alt={place.name}
                   fill
                   sizes="(max-width: 768px) 100vw, 25vw"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
               </div>
-              <p className="text-sm text-gray-700">{place.description}</p>
+              {/* <p className="text-sm text-gray-700">{place.description}</p> */}
             </CardContent>
           </Card>
         </Link>

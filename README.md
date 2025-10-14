@@ -88,3 +88,8 @@ npx prisma generate
 
 Studio ажиллуулах
 npx prisma studio
+
+npx prisma db seed
+
+npx prisma migrate reset
+
