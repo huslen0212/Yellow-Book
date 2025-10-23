@@ -14,7 +14,18 @@ interface Place {
   category: string;
 }
 
-// Dynamic route-iin parametr avah
+// SSG-d zoriulsan generateStaticParams
+export async function generateStaticParams() {
+  const res = await fetch('http://localhost:3001/places');
+  const places: Place[] = await res.json();
+
+  return places.map((place) => ({
+    id: place.id,
+  }));
+}
+
+export const revalidate = 60;
+
 interface PageProps {
   params: { id: string };
 }
@@ -22,8 +33,9 @@ interface PageProps {
 export default async function YellowBookPage({ params }: PageProps) {
   const { id } = params;
 
-  // Backend ruu fetch hiih
-  const res = await fetch(`http://localhost:3001/places/${id}`);
+  const res = await fetch(`http://localhost:3001/places/${id}`, {
+    next: { revalidate: 60 }, // <-- SSG + incremental revalidation
+  });
 
   if (!res.ok) {
     notFound();
