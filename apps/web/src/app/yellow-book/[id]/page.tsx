@@ -23,11 +23,24 @@ interface PageProps {
   params: { id: string };
 }
 
+export const revalidate = 60;
+
+// generateStaticParams → uridcilan static page uusgene
+export async function generateStaticParams() {
+  const res = await fetch('http://localhost:3001/places');
+  const places: Place[] = await res.json();
+
+  return places.map((place) => ({
+    id: String(place.id),
+  }));
+}
+
 export default async function YellowBookPage({ params }: PageProps) {
   const { id } = params;
 
-  // Backend ruu fetch hiih
-  const res = await fetch(`http://localhost:3001/places/${id}`);
+  const res = await fetch(`http://localhost:3001/places/${id}`, {
+    next: { revalidate: 60 }, // ISR: 60 sekund tutamd shineclene
+  });
 
   if (!res.ok) {
     notFound();
@@ -38,7 +51,6 @@ export default async function YellowBookPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-
       <div className="ml-5 mt-4">
         <BackButton />
       </div>
@@ -58,7 +70,6 @@ export default async function YellowBookPage({ params }: PageProps) {
           {/* Content */}
           <div className="flex-1">
             <h1 className="text-3xl font-bold mb-4">{place.name}</h1>
-
             <p className="text-gray-700 mb-4">{place.long_description}</p>
 
             <div className="space-y-2 text-sm mb-6">

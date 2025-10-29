@@ -2,6 +2,22 @@ import { Suspense } from 'react';
 import Header from '@/components/Header';
 import PlacesGrid from '@/components/PlacesGrid';
 import BackButton from '@/components/BackButton';
+
+export interface Place {
+  id: string;
+  name: string;
+  image: string;
+  founded_year: string;
+  location: string;
+  short_description: string;
+  category: string;
+  phone_number: string;
+  facebook_url: string;
+  instagram_url: string;
+  website_url: string;
+  long_description: string;
+}
+
 // ISR tohirgoo
 export const revalidate = 60;
 
@@ -12,7 +28,12 @@ async function PlacesSection() {
   });
   const places = await res.json();
 
-  return <PlacesGrid places={places} />;
+  // Mongol tsagaan tolgoin daraallaar sortloh
+  const sortedPlaces = places.sort((a: Place, b: Place) =>
+    a.name.localeCompare(b.name, 'mn', { sensitivity: 'base' })
+  );
+
+  return <PlacesGrid places={sortedPlaces} />;
 }
 
 export default function Home() {
