@@ -3,15 +3,20 @@ import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
 import BackButton from '@/components/BackButton';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 interface Place {
   id: string;
   name: string;
-  description: string;
+  long_description: string;
   image: string;
-  foundedYear: string;
+  founded_year: string;
   location: string;
   category: string;
+  phone_number: string;
+  facebook_url: string;
+  instagram_url: string;
+  website_url: string;
 }
 
 interface PageProps {
@@ -53,19 +58,49 @@ export default async function YellowBookPage({ params }: PageProps) {
           {/* Content */}
           <div className="flex-1">
             <h1 className="text-3xl font-bold mb-4">{place.name}</h1>
-            <p className="text-gray-700 mb-4">{place.description}</p>
+
+            <p className="text-gray-700 mb-4">{place.long_description}</p>
+
             <div className="space-y-2 text-sm mb-6">
               <div className="flex">
                 <span className="font-semibold w-32">Үүссэн он:</span>
-                <span className="text-gray-700">{place.foundedYear}</span>
+                <span className="text-gray-700">{place.founded_year}</span>
               </div>
+
               <div className="flex">
                 <span className="font-semibold w-32">Байршил:</span>
                 <span className="text-gray-700">{place.location}</span>
               </div>
+
               <div className="flex">
                 <span className="font-semibold w-32">Төрөл:</span>
                 <span className="text-gray-700">{place.category}</span>
+              </div>
+
+              <div className="flex">
+                <span className="font-semibold w-32">Утас:</span>
+                <span className="text-gray-700">{place.phone_number}</span>
+              </div>
+
+              <div className="flex">
+                <span className="font-semibold w-32">Facebook хаяг:</span>
+                <span className="text-gray-700">
+                  <Link href={place.facebook_url}>{place.facebook_url}</Link>
+                </span>
+              </div>
+
+              <div className="flex">
+                <span className="font-semibold w-32">Instagram хаяг:</span>
+                <span className="text-gray-700">
+                  <Link href={place.instagram_url}>{place.instagram_url}</Link>
+                </span>
+              </div>
+
+              <div className="flex">
+                <span className="font-semibold w-32">Веб:</span>
+                <span className="text-gray-700">
+                  <Link href={place.website_url}>{place.website_url}</Link>
+                </span>
               </div>
             </div>
 

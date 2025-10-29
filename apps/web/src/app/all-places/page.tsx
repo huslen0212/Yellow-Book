@@ -1,51 +1,32 @@
-// import BackButton from '@/components/BackButton';
-// import Header from '@/components/Header';
-// import PlacesGrid from '@/components/PlacesGrid';
+import { Suspense } from 'react';
+import Header from '@/components/Header';
+import PlacesGrid from '@/components/PlacesGrid';
+import BackButton from '@/components/BackButton';
+// ISR tohirgoo
+export const revalidate = 60;
 
-// const allPlaces = [
-//   {
-//     id: '1',
-//     title: 'Төв Номын Сан',
-//     description:
-//       'Монгол Улсын Үндэсний номын сан нь олон төрлийн ном, сэтгүүл, дижитал сан бүхий нийтийн уншлагын төв юм.',
-//     image: '/nomiinSan.jpg',
-//   },
-//   {
-//     id: '2',
-//     title: 'Чингис хаан Үндэсний Музей',
-//     description:
-//       'Монголын түүх, соёл, урлагийг дэлгэн үзүүлэх орчин үеийн тоноглогдсон музей.',
-//     image: '/muzei.jpg',
-//   },
-//   {
-//     id: '3',
-//     title: 'Акума Засварын Төв',
-//     description:
-//       'Хотын төвд байрлах олон үйл ажиллагаатай үйлчилгээний төв бөгөөд уншлагын өрөө, компьютерын өрөө, цахим номын санг санал болгодог.',
-//     image: '/akuma.jpg',
-//   },
-//   {
-//     id: '4',
-//     title: 'Тэрэлж Ресорт',
-//     description:
-//       'Тэрэлжийн байгалийн цогцолборт газрын төвд байрлах амралтын газар бөгөөд зочдод тав тухтай орчинг олгодог.',
-//     image: '/terelj.jpg',
-//   },
-// ];
+// Streamed section (async)
+async function PlacesSection() {
+  const res = await fetch('http://localhost:3001/places', {
+    next: { revalidate: 60 },
+  });
+  const places = await res.json();
 
-// export default function AllPlacesPage() {
-//   return (
-//     <div className="min-h-screen bg-white text-black">
-//       <Header />
+  return <PlacesGrid places={places} />;
+}
 
-//       <div className="ml-5 mt-4">
-//         <BackButton />
-//       </div>
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-white text-black">
+      <Header />
 
-//       <h1 className="text-3xl font-bold text-center mt-8">Бүх газрууд</h1>
-//       <div className="mt-8 px-10">
-//         <PlacesGrid places={allPlaces} />
-//       </div>
-//     </div>
-//   );
-// }
+      <div className="ml-5 mt-4">
+        <BackButton />
+      </div>
+      {/* Streamed section */}
+      <Suspense fallback={<p className="text-center mt-10">Ачаалж байна...</p>}>
+        <PlacesSection />
+      </Suspense>
+    </div>
+  );
+}
