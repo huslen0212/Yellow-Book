@@ -95,21 +95,21 @@ export default async function YellowBookPage({ params }: PageProps) {
 
               <div className="flex">
                 <span className="font-semibold w-32">Facebook хаяг:</span>
-                <span className="text-gray-700">
+                <span className="text-gray-700 underline">
                   <Link href={place.facebook_url}>{place.facebook_url}</Link>
                 </span>
               </div>
 
               <div className="flex">
                 <span className="font-semibold w-32">Instagram хаяг:</span>
-                <span className="text-gray-700">
+                <span className="text-gray-700 underline">
                   <Link href={place.instagram_url}>{place.instagram_url}</Link>
                 </span>
               </div>
 
               <div className="flex">
                 <span className="font-semibold w-32">Веб:</span>
-                <span className="text-gray-700">
+                <span className="text-gray-700 underline">
                   <Link href={place.website_url}>{place.website_url}</Link>
                 </span>
               </div>

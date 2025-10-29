@@ -18,18 +18,18 @@ export interface Place {
   long_description: string;
 }
 
-// ISR tohirgoo
+// ISR тохиргоо
 export const revalidate = 60;
 
-// Streamed section (async)
+// Streamed section
 async function PlacesSection() {
   const res = await fetch('http://localhost:3001/places', {
     next: { revalidate: 60 },
   });
-  const places = await res.json();
+  const places: Place[] = await res.json();
 
-  // Mongol tsagaan tolgoin daraallaar sortloh
-  const sortedPlaces = places.sort((a: Place, b: Place) =>
+  // Mongol tsagaan tolgoi daraallar sort hiine
+  const sortedPlaces = places.sort((a, b) =>
     a.name.localeCompare(b.name, 'mn', { sensitivity: 'base' })
   );
 
@@ -38,16 +38,22 @@ async function PlacesSection() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="min-h-screen bg-white text-black flex flex-col">
       <Header />
 
-      <div className="ml-5 mt-4">
+      <div className="px-6 md:px-12 mt-4">
         <BackButton />
       </div>
-      {/* Streamed section */}
-      <Suspense fallback={<p className="text-center mt-10">Ачаалж байна...</p>}>
-        <PlacesSection />
-      </Suspense>
+
+      <div className="flex-1 px-6 md:px-12 py-6">
+        <Suspense
+          fallback={
+            <p className="text-center mt-10 text-gray-500">Ачаалж байна...</p>
+          }
+        >
+          <PlacesSection />
+        </Suspense>
+      </div>
     </div>
   );
 }

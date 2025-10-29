@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import PlacesGrid from '@/components/PlacesGrid';
 import { Button } from './ui/button';
+import { Search } from 'lucide-react';
 
 export interface Place {
   id: string;
@@ -48,13 +49,17 @@ export default function SearchSection({ initialPlaces }: Props) {
 
   return (
     <div className="mt-6 flex flex-col items-center">
-      <input
-        type="text"
-        placeholder="Газрын нэрээр хайх..."
-        className="w-[400px] border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-        value={nameSearch}
-        onChange={(e) => setNameSearch(e.target.value)}
-      />
+      <div className="relative w-[400px]">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+
+        <input
+          type="text"
+          placeholder="Газрын нэрээр хайх..."
+          className="w-full pl-10 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          value={nameSearch}
+          onChange={(e) => setNameSearch(e.target.value)}
+        />
+      </div>
 
       <div className="flex items-center gap-3 mt-6">
         <span className="font-medium text-lg">Төрөл:</span>

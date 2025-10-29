@@ -1,5 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export interface Place {
   id: string;
@@ -28,15 +29,14 @@ export default function PlacesGrid({ places }: PlacesGridProps) {
               flex flex-col h-full
             "
           >
-            {/* Зураг */}
-            {/* <div className="relative w-full aspect-[4/3] overflow-hidden rounded-t-2xl">
+            <div className="relative w-full aspect-[4/3] overflow-hidden rounded-t-2xl">
               <Image
                 src={place.image || '/default.jpg'}
                 alt={place.name}
                 fill
                 className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               />
-            </div> */}
+            </div>
 
             <CardHeader>
               <CardTitle className="flex justify-center text-center text-lg">

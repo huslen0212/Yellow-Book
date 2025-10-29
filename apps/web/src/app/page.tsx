@@ -26,7 +26,7 @@ export default async function Home() {
         <SearchSection initialPlaces={initialPlaces} />
       </Suspense>
 
-      <div className="flex justify-center mt-6">
+      <div className="flex justify-center mt-6 pb-10">
         <Link href="/all-places">
           <Button>Бүгдийг үзэх</Button>
         </Link>
